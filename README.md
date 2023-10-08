@@ -1,0 +1,2 @@
+# adatbazisok_kotelezo_program
+Adatbazisokra keszintendo kotelezo program

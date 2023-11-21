@@ -1,4 +1,4 @@
-<html>
+<html lang="hu">
     <head>
         <title>Főoldal</title>
     </head>

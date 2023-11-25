@@ -3,6 +3,14 @@
         <title>Főoldal</title>
     </head>
     <body>
-        <h1>Helló world!</h1>
+        <header>
+            <table>
+                <tr>
+                    <td><a href="index.php">Főoldal</a></td>
+                    <td><a href="login.php">Bejelentkezés</a></td>
+                    <td><a href="register.php">Regisztráció</a></td>
+                </tr>
+            </table>
+        </header>
     </body>
 </html>

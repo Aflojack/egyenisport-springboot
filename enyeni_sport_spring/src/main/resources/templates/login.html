@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Bejelentkezés</title>
+</head>
+    <body>
+        <form action="#" th:action="@{/login}" method="post">
+            <label>
+                Felhasználónév
+                <input type="text" placeholder="Felhasználónév" name="felhasznalonev">
+            </label>
+            <label>
+                Jelszó
+                <input type="password" placeholder="Jelszó" name="jelszo">
+            </label>
+            <input type="submit" value="Belépés">
+        </form>
+        <p th:text="${error}"></p><br>
+        <p><a href="/">Vissza</a></p>
+    </body>
+</html>

@@ -23,9 +23,13 @@
                 <input type="text" placeholder="Név" name="nev">
             </label>
             <label>
-                Admin (1 vagy 0)
-                <input type="text" placeholder="Admin" name="admin">
+                Jogosultság
+                <select name="admin">
+                    <option value=0>Felhasználó</option>
+                    <option value=1>Admin</option>
+                </select>
             </label>
+
             <input type="submit" value="Regisztráció">
         </form>
         <p th:text="${error}"></p>

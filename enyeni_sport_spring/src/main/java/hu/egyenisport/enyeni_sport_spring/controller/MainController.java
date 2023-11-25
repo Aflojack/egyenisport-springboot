@@ -1,7 +1,9 @@
 package hu.egyenisport.enyeni_sport_spring.controller;
 
+import hu.egyenisport.enyeni_sport_spring.dao.CompetitorDAO;
 import hu.egyenisport.enyeni_sport_spring.model.MenuModel;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Controller
 public class MainController {
+    @Autowired
+    CompetitorDAO competitorDAO;
 
     @GetMapping("/")
     public String mainPage(Model model, HttpSession session){
@@ -24,7 +28,9 @@ public class MainController {
             if(admin){
                 menuElements.add(new MenuModel("Admin","/admin"));
             }
-            menuElements.add(new MenuModel("Felhasználó","/user"));
+            if(session.getAttribute("felhasznalonev")!=null && competitorDAO.getCompetitorByUsername((String)session.getAttribute("felhasznalonev"))!=null){
+                menuElements.add(new MenuModel("Profil","/profile"));
+            }
             menuElements.add(new MenuModel("Kijelentkezés","/logout"));
         }
         model.addAttribute("menuElements",menuElements);

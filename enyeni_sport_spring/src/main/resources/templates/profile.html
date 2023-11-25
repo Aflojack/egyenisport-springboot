@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="hu"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Felhasználó</title>
+</head>
+    <body>
+    <form action="#" th:action="@{/profile/update}" method="post" class="form form-control">
+        <label>
+            Név
+            <input type="text" placeholder="Név" name="nev" th:value="${currentUser.getNev()}">
+        </label><br>
+        <label>
+            Születési dátum (ÉÉÉÉ-HH-NN)
+            <input type="text" placeholder="Születési dátum" name="szuletesidatum" th:value="${currentUser.getSzuletesidatum()}">
+        </label><br>
+        <label>
+            Születésihely
+            <input type="text" placeholder="Születésihely" name="szuletesihely" th:value="${currentUser.getSzuletesihely()}">
+        </label><br>
+        <label>
+            Állampolgárság
+            <input type="text" placeholder="Állampolgárság" name="allampolgarsag" th:value="${currentUser.getAllampolgarsag()}">
+        </label><br>
+        <label>
+            Aktív
+            <select name="aktiv" th:value="${currentUser.isAktiv()}">
+                <option value=1>igen</option>
+                <option value=0>nem</option>
+            </select>
+        </label><br>
+        <button type="submit" value="hozzaad">Hozzáad</button>
+    </form>
+    <p><a href="/">Vissza</a></p>
+    </body>
+</html>

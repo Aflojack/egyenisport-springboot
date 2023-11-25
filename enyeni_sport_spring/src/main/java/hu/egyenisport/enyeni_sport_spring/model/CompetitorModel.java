@@ -38,6 +38,15 @@ public class CompetitorModel {
         this.felhasznalonev = felhasznalonev;
     }
 
+    public CompetitorModel(String nev, Date szuletesidatum, String szuletesihely, String allampolgarsag, boolean aktiv, String felhasznalonev) {
+        this.nev = nev;
+        this.szuletesidatum = szuletesidatum;
+        this.szuletesihely = szuletesihely;
+        this.allampolgarsag = allampolgarsag;
+        this.aktiv = aktiv;
+        this.felhasznalonev = felhasznalonev;
+    }
+
     public String aktiv(){
         return aktiv?"igen":"nem";
     }

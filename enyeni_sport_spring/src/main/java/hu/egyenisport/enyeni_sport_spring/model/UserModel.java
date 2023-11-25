@@ -17,4 +17,8 @@ public class UserModel {
         this.nev = nev;
         this.admin = admin;
     }
+
+    public UserModel(String felhasznalonev) {
+        this.felhasznalonev = felhasznalonev;
+    }
 }

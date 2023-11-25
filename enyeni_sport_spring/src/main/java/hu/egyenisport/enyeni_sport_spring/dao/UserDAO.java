@@ -1,5 +1,6 @@
 package hu.egyenisport.enyeni_sport_spring.dao;
 
+import hu.egyenisport.enyeni_sport_spring.model.CompetitorModel;
 import hu.egyenisport.enyeni_sport_spring.model.UserModel;
 import hu.egyenisport.enyeni_sport_spring.util.PasswordHash;
 import jakarta.annotation.PostConstruct;
@@ -8,6 +9,8 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,5 +45,18 @@ public class UserDAO extends JdbcDaoSupport {
             );
         }
         return null;
+    }
+
+    public List<UserModel> listAllUsername(){
+        String sql = "SELECT * FROM felhasznalo";
+        List <Map< String, Object >> rows = getJdbcTemplate().queryForList(sql);
+        if(rows.isEmpty()){
+            return null;
+        }
+        List<UserModel> users=new ArrayList<>();
+        for (Map< String, Object > row: rows) {
+            users.add(new UserModel((String)row.get("felhasznalonev")));
+        }
+        return users;
     }
 }

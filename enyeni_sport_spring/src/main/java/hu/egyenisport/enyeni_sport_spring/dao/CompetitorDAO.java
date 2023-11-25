@@ -72,4 +72,11 @@ public class CompetitorDAO  extends JdbcDaoSupport {
         }
         return competitors;
     }
+
+    public void deleteCompetitor(int versenyzoid){
+        String sql="DELETE FROM versenyzo WHERE versenyzoid=?";
+        getJdbcTemplate().update(sql,new Object[]{
+                versenyzoid
+        });
+    }
 }

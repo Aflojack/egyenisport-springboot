@@ -38,5 +38,11 @@ public class CompetitorModel {
         this.felhasznalonev = felhasznalonev;
     }
 
+    public String aktiv(){
+        return aktiv?"igen":"nem";
+    }
 
+    public String felhasznalonev(){
+        return felhasznalonev==null?"nincs":felhasznalonev;
+    }
 }

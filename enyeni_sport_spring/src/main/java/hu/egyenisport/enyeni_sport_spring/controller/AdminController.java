@@ -113,8 +113,9 @@ public class AdminController {
             @RequestParam("merkozes") String merkozes,
             @RequestParam("eredmeny") String eredmeny
     ){
-        ParticipateModel participateModel=new ParticipateModel(Integer.parseInt(versenyzo),Integer.parseInt(merkozes),"Győzelem".equals(eredmeny));
+        ParticipateModel participateModel=new ParticipateModel(Integer.parseInt(versenyzo),Integer.parseInt(merkozes),"1".equals(eredmeny));
         participateDAO.addParticipate(participateModel);
+        competitorDAO.updateCompetitorStat(Integer.parseInt(versenyzo));
         return "redirect:/admin";
     }
 

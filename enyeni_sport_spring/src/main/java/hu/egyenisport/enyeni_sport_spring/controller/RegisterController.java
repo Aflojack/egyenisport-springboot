@@ -39,7 +39,8 @@ public class RegisterController {
                 return "register";
             }
             userDAO.createUser(new UserModel(felhasznalonev,jelszo1,nev,"1".equals(admin)));
-            return "redirect:/login";
+            model.addAttribute("error","Regisztráció sikeres!");
+            return "register";
         }catch (Exception ex){
             model.addAttribute("error","Regisztráció nem sikeres!"+ex.getMessage());
         }

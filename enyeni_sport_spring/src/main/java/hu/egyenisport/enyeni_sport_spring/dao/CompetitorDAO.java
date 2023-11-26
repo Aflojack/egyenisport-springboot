@@ -121,6 +121,7 @@ public class CompetitorDAO  extends JdbcDaoSupport {
         getJdbcTemplate().update(sql,new Object[]{
                 versenyzoid
         });
+        updateCompetitorStat(versenyzoid);
     }
 
     public void updateCompetitor(CompetitorModel competitorModel){
@@ -131,6 +132,34 @@ public class CompetitorDAO  extends JdbcDaoSupport {
                 competitorModel.getSzuletesihely(),
                 competitorModel.getAllampolgarsag(),
                 competitorModel.isAktiv(),
+        });
+    }
+
+    public void updateCompetitorStat(int versenyzoid){
+        String sql="SELECT COUNT(eredmeny) AS db_gy FROM resztvesz WHERE eredmeny=1 AND versenyzoid=? GROUP BY eredmeny";
+        List <Map< String, Object >> rows = getJdbcTemplate().queryForList(sql,versenyzoid);
+        long db_gy=0;
+        for (Map< String, Object > row: rows) {
+            db_gy=(long)row.get("db_gy");
+            break;
+        }
+        sql="SELECT COUNT(eredmeny) AS db_v FROM resztvesz WHERE eredmeny=0 AND versenyzoid=? GROUP BY eredmeny";
+        rows = getJdbcTemplate().queryForList(sql,versenyzoid);
+        long db_v=0;
+        for (Map< String, Object > row: rows) {
+            db_v=(long)row.get("db_v");
+            break;
+        }
+        double arany;
+        if(db_v==0.0 || db_gy==0.0){
+            arany=0.0;
+        }else{
+            arany=db_gy/(double)db_v;
+        }
+        sql="UPDATE versenyzo SET gyesvarany=? WHERE versenyzoid=?";
+        getJdbcTemplate().update(sql,new Object[]{
+                arany,
+                versenyzoid
         });
     }
 }

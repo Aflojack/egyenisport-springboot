@@ -1,13 +1,8 @@
 package hu.egyenisport.enyeni_sport_spring.controller;
 
-import hu.egyenisport.enyeni_sport_spring.dao.ChampionshipDAO;
-import hu.egyenisport.enyeni_sport_spring.dao.CompetitorDAO;
-import hu.egyenisport.enyeni_sport_spring.dao.MatchDAO;
-import hu.egyenisport.enyeni_sport_spring.dao.UserDAO;
-import hu.egyenisport.enyeni_sport_spring.model.ChampionshipModel;
-import hu.egyenisport.enyeni_sport_spring.model.CompetitorModel;
-import hu.egyenisport.enyeni_sport_spring.model.MatchModel;
-import hu.egyenisport.enyeni_sport_spring.model.UserModel;
+import hu.egyenisport.enyeni_sport_spring.dao.*;
+import hu.egyenisport.enyeni_sport_spring.model.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +24,18 @@ public class AdminController {
     ChampionshipDAO championshipDAO;
     @Autowired
     MatchDAO matchDAO;
+    @Autowired
+    ParticipateDAO participateDAO;
 
     @GetMapping("/admin")
-    public String adminLoad(Model model){
+    public String adminLoad(Model model, HttpSession session){
+        if(session==null){
+            return "redirect:/login";
+        }
+        Boolean admin=(Boolean)session.getAttribute("admin");
+        if(admin==null || !admin){
+            return "redirect:/login";
+        }
         List<CompetitorModel> competitors=competitorDAO.listAllCompetitors();
         model.addAttribute("competitors",competitors);
         List<UserModel> users=userDAO.listFreeUsernames();
@@ -40,6 +44,8 @@ public class AdminController {
         model.addAttribute("championships",championships);
         List<MatchModel> matches=matchDAO.listMatch();
         model.addAttribute("matches",matches);
+        List<ParticipateModel> participate=participateDAO.list();
+        model.addAttribute("participate",participate);
         return "admin";
     }
 
@@ -98,6 +104,23 @@ public class AdminController {
     @PostMapping("admin/match/delete/{id}")
     public String deleteMatch(@PathVariable int id){
         matchDAO.deleteMatch(id);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/admin/participate/create")
+    public String addParticipate(
+            @RequestParam("versenyzo") String versenyzo,
+            @RequestParam("merkozes") String merkozes,
+            @RequestParam("eredmeny") String eredmeny
+    ){
+        ParticipateModel participateModel=new ParticipateModel(Integer.parseInt(versenyzo),Integer.parseInt(merkozes),"Győzelem".equals(eredmeny));
+        participateDAO.addParticipate(participateModel);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/admin/participate/delete/{resztveszid}")
+    public String deleteParticipate(@PathVariable int resztveszid){
+        participateDAO.deleteParticipate(resztveszid);
         return "redirect:/admin";
     }
 }

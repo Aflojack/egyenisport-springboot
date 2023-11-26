@@ -1,7 +1,6 @@
 package hu.egyenisport.enyeni_sport_spring.dao;
 
 import hu.egyenisport.enyeni_sport_spring.model.ChampionshipModel;
-import hu.egyenisport.enyeni_sport_spring.model.CompetitorModel;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;

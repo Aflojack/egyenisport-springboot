@@ -38,7 +38,7 @@ public class CompetitorModel {
         this.felhasznalonev = felhasznalonev;
     }
 
-    public CompetitorModel(String nev, Date szuletesidatum, String szuletesihely, String allampolgarsag, boolean aktiv, String felhasznalonev) {
+    public CompetitorModel(String nev, Date szuletesidatum, String szuletesihely, String allampolgarsag, boolean aktiv) {
         this.nev = nev;
         this.szuletesidatum = szuletesidatum;
         this.szuletesihely = szuletesihely;

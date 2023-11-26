@@ -103,10 +103,29 @@
             </tr>
             </tbody>
         </table>
-        <form action="#" th:action="@{/admin/competitor/create}" method="post" class="form form-control">
+        <form action="#" th:action="@{/admin/championship/create}" method="post" class="form form-control">
             <label>
                 Név
                 <input type="text" placeholder="Név" name="nev">
+            </label><br>
+            <label>
+                Kezdete (ÉÉÉÉ-HH-NN)
+                <input type="text" placeholder="Kezdete" name="kezdet">
+            </label><br>
+            <label>
+                Vége (ÉÉÉÉ-HH-NN)
+                <input type="text" placeholder="Vége" name="vege">
+            </label><br>
+            <label>
+                Helyszín
+                <input type="text" placeholder="Helyszín" name="helyszin">
+            </label><br>
+            <label>
+                Nyílt?
+                <select name="nyilt">
+                    <option value="1">Bárki nevezhet</option>
+                    <option value="0">Meghívásos</option>
+                </select>
             </label><br>
             <button type="submit" value="hozzaad">Hozzáad</button>
         </form>

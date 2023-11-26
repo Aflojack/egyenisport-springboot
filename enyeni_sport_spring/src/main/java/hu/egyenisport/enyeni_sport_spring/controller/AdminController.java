@@ -30,7 +30,7 @@ public class AdminController {
     public String adminLoad(Model model){
         List<CompetitorModel> competitors=competitorDAO.listAllCompetitors();
         model.addAttribute("competitors",competitors);
-        List<UserModel> users=userDAO.listAllUsername();
+        List<UserModel> users=userDAO.listFreeUsernames();
         model.addAttribute("usernames",users);
         List<ChampionshipModel> championships=championshipDAO.listChampionships();
         model.addAttribute("championships",championships);
@@ -53,8 +53,28 @@ public class AdminController {
             @RequestParam("felhasznalonev") String felhasznalonev
     ){
         boolean fiokAllapot="nincs".equals(felhasznalonev);
-        CompetitorModel competitor=new CompetitorModel(nev,Date.valueOf(szuletesidatum),szuletesihely,allampolgarsag,"igen".equals(aktiv),0.0,fiokAllapot?null:felhasznalonev);
+        CompetitorModel competitor=new CompetitorModel(nev,Date.valueOf(szuletesidatum),szuletesihely,allampolgarsag,"1".equals(aktiv),0.0,fiokAllapot?null:felhasznalonev);
         competitorDAO.createCompetitor(competitor,!fiokAllapot);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/admin/championship/create")
+    public String createComepetitor(
+            @RequestParam("nev") String nev,
+            @RequestParam("kezdet") String kezdet,
+            @RequestParam("vege") String vege,
+            @RequestParam("helyszin") String helyszin,
+            @RequestParam("nyilt") String nyilt
+    ){
+        boolean nyiltBoolean="1".equals(nyilt);
+        ChampionshipModel championshipModel=new ChampionshipModel(nev,Date.valueOf(kezdet),Date.valueOf(vege),helyszin,nyiltBoolean);
+        championshipDAO.createChampionship(championshipModel);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("admin/championship/delete/{nev}")
+    public String deleteCompetitor(@PathVariable String nev){
+        championshipDAO.deleteChampionship(nev);
         return "redirect:/admin";
     }
 }

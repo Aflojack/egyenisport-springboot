@@ -53,4 +53,11 @@ public class ChampionshipDAO extends JdbcDaoSupport {
         }
         return championships;
     }
+
+    public void deleteChampionship(String nev){
+        String sql="DELETE FROM bajnoksag WHERE nev=?";
+        getJdbcTemplate().update(sql,new Object[]{
+                nev
+        });
+    }
 }

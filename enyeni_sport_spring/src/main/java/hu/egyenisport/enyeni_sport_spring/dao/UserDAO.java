@@ -59,4 +59,17 @@ public class UserDAO extends JdbcDaoSupport {
         }
         return users;
     }
+
+    public List<UserModel> listFreeUsernames(){
+        String sql = "SELECT * FROM felhasznalo WHERE felhasznalonev NOT IN (SELECT felhasznalo.felhasznalonev FROM felhasznalo,versenyzo WHERE versenyzo.felhasznalonev=felhasznalo.felhasznalonev)";
+        List <Map< String, Object >> rows = getJdbcTemplate().queryForList(sql);
+        if(rows.isEmpty()){
+            return null;
+        }
+        List<UserModel> users=new ArrayList<>();
+        for (Map< String, Object > row: rows) {
+            users.add(new UserModel((String)row.get("felhasznalonev")));
+        }
+        return users;
+    }
 }

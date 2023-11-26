@@ -38,4 +38,17 @@ public class StatDAO extends JdbcDaoSupport {
         }
         return stat;
     }
+
+    public List<String> getOld(){
+        String sql="SELECT nev, szuletesidatum FROM versenyzo ORDER BY szuletesidatum LIMIT 5";
+        List <Map< String, Object >> rows = getJdbcTemplate().queryForList(sql);
+        List<String> stat=new ArrayList<>();
+        if(rows.isEmpty()){
+            return stat;
+        }
+        for (Map< String, Object > row: rows) {
+            stat.add((String)row.get("nev"));
+        }
+        return stat;
+    }
 }

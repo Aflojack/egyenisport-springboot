@@ -17,6 +17,8 @@ public class StatController {
     public String statLoad(Model model){
         List<StatModel> list=statDAO.getSelection();
         model.addAttribute("list",list);
+        List<String> names=statDAO.getOld();
+        model.addAttribute("names",names);
         return "stat";
     }
 }

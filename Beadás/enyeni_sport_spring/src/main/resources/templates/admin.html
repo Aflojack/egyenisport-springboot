@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="hu"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+    <body>
+        <p><a href="/">Vissza</a></p>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>VersenyzőID</th>
+                    <th>Név</th>
+                    <th>Születési dátum</th>
+                    <th>Születésihely</th>
+                    <th>Állampolgárság</th>
+                    <th>Aktív</th>
+                    <th>Győzelem és nyerési arány</th>
+                    <th>Felhasználónév</th>
+                    <th>Törlés</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="element:${competitors}">
+                    <td th:text="${element.getVersenyzoid()}"></td>
+                    <td th:text="${element.getNev()}"></td>
+                    <td th:text="${element.getSzuletesidatum()}"></td>
+                    <td th:text="${element.getSzuletesihely()}"></td>
+                    <td th:text="${element.getAllampolgarsag()}"></td>
+                    <td th:text="${element.aktiv()}"></td>
+                    <td th:text="${element.getGyesvarany()}"></td>
+                    <td th:text="${element.felhasznalonev()}"></td>
+                    <td>
+                        <form th:action="@{/admin/competitor/delete/{versenyzoid}(versenyzoid=${element.getVersenyzoid()})}" method="post">
+                            <button type="submit" value="delete">Törlés</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <form action="#" th:action="@{/admin/competitor/create}" method="post" class="form form-control">
+            <label>
+                Név
+                <input type="text" placeholder="Név" name="nev">
+            </label><br>
+            <label>
+                Születési dátum (ÉÉÉÉ-HH-NN)
+                <input type="text" placeholder="Születési dátum" name="szuletesidatum">
+            </label><br>
+            <label>
+                Születésihely
+                <input type="text" placeholder="Születésihely" name="szuletesihely">
+            </label><br>
+            <label>
+                Állampolgárság
+                <input type="text" placeholder="Állampolgárság" name="allampolgarsag">
+            </label><br>
+            <label>
+                Aktív
+                <select name="aktiv">
+                    <option value=1>igen</option>
+                    <option value=0>nem</option>
+                </select>
+            </label><br>
+            <label>
+                Felhasználónév
+                <select name="felhasznalonev">
+                    <option value="nincs">nincs</option>
+                    <option th:each="element:${usernames}" th:text="${element.getFelhasznalonev()}" th:value="${element.getFelhasznalonev()}"></option>
+                </select>
+            </label><br>
+            <button type="submit" value="hozzaad">Hozzáad</button>
+        </form>
+
+        <!--Bajnokság -->
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th>Bajnokság név</th>
+                <th>Bajnokság kezdete</th>
+                <th>Bajnokság vége</th>
+                <th>Helyszín</th>
+                <th>Meghívásos?</th>
+                <th>Törlés</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="element:${championships}">
+                <td th:text="${element.getNev()}"></td>
+                <td th:text="${element.getKezdodatum()}"></td>
+                <td th:text="${element.getVegzodatum()}"></td>
+                <td th:text="${element.getHelyszin()}"></td>
+                <td th:text="${element.nyilt()}"></td>
+                <td>
+                    <form th:action="@{/admin/championship/delete/{nev}(nev=${element.getNev()})}" method="post">
+                        <button type="submit" value="delete">Törlés</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form action="#" th:action="@{/admin/championship/create}" method="post" class="form form-control">
+            <label>
+                Név
+                <input type="text" placeholder="Név" name="nev">
+            </label><br>
+            <label>
+                Kezdete (ÉÉÉÉ-HH-NN)
+                <input type="text" placeholder="Kezdete" name="kezdet">
+            </label><br>
+            <label>
+                Vége (ÉÉÉÉ-HH-NN)
+                <input type="text" placeholder="Vége" name="vege">
+            </label><br>
+            <label>
+                Helyszín
+                <input type="text" placeholder="Helyszín" name="helyszin">
+            </label><br>
+            <label>
+                Nyílt?
+                <select name="nyilt">
+                    <option value="1">Bárki nevezhet</option>
+                    <option value="0">Meghívásos</option>
+                </select>
+            </label><br>
+            <button type="submit" value="hozzaad">Hozzáad</button>
+        </form>
+
+        <!-- Merkozesek -->
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th>MérkőzédId</th>
+                <th>Dátum</th>
+                <th>Helyszin</th>
+                <th>Tartozó bajnokság</th>
+                <th>Törlés</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="element:${matches}">
+                <td th:text="${element.getMerkozesid()}"></td>
+                <td th:text="${element.getDatum()}"></td>
+                <td th:text="${element.getHelyszin()}"></td>
+                <td th:text="${element.getNev()}"></td>
+                <td>
+                    <form th:action="@{/admin/match/delete/{id}(id=${element.getMerkozesid()})}" method="post">
+                        <button type="submit" value="delete">Törlés</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form action="#" th:action="@{/admin/match/create}" method="post" class="form form-control">
+            <label>
+                Dátuma (ÉÉÉÉ-HH-NN)
+                <input type="text" placeholder="Kezdete" name="datum">
+            </label><br>
+            <label>
+                Helyszín
+                <input type="text" placeholder="Helyszín" name="helyszin">
+            </label><br>
+            <label>
+                Bajnoksaghoz tartozik
+                <select name="bajnoksagnev">
+                    <option th:each="element:${championships}" th:value="${element.getNev()}" th:text="${element.getNev()}"></option>
+                </select>
+            </label><br>
+            <button type="submit" value="hozzaad">Hozzáad</button>
+        </form>
+
+        <!-- Reszvetel -->
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th>VersenyzőId</th>
+                <th>MérdőzésId</th>
+                <th>Eredmény</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="element:${participate}">
+                <td th:text="${element.getVersenyzoid()}"></td>
+                <td th:text="${element.getMerkozesid()}"></td>
+                <td th:text="${element.eredmeny()}"></td>
+                <td>
+                    <form th:action="@{/admin/participate/delete/{resztveszid}(resztveszid=${element.getResztveszid()})}" method="post">
+                        <button type="submit" value="delete">Törlés</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form action="#" th:action="@{/admin/participate/create}" method="post" class="form form-control">
+            <label>
+                Versenyzők
+                <select name="versenyzo">
+                    <option th:each="element:${competitors}" th:value="${element.getVersenyzoid()}" th:text="${element.getVersenyzoid()}+';'+${element.getNev()}"></option>
+                </select>
+            </label><br>
+            <label>
+                Mérkőzések
+                <select name="merkozes">
+                    <option th:each="element:${matches}" th:value="${element.getMerkozesid()}" th:text="${element.getMerkozesid()}+';'+${element.getHelyszin()}"></option>
+                </select>
+            </label><br>
+            <label>
+                Eredmény
+                <select name="eredmeny">
+                    <option value="1">Győzelem</option>
+                    <option value="0">Vereség</option>
+                </select>
+            </label><br>
+            <button type="submit" value="hozzaad">Hozzáad</button>
+        </form>
+    </body>
+</html>

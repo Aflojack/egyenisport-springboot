@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Regisztráció</title>
+</head>
+    <body>
+        <form action="#" th:action="@{/register}" method="post">
+            <label>
+                Felhasználónév
+                <input type="text" placeholder="Felhasználónév" name="felhasznalonev">
+            </label>
+            <label>
+                Jelszó
+                <input type="password" placeholder="Jelszó" name="jelszo1">
+            </label>
+            <label>
+                Jelszó újra
+                <input type="password" placeholder="Jelszó" name="jelszo2">
+            </label>
+            <label>
+                Név
+                <input type="text" placeholder="Név" name="nev">
+            </label>
+            <label>
+                Jogosultság
+                <select name="admin">
+                    <option value=0>Felhasználó</option>
+                    <option value=1>Admin</option>
+                </select>
+            </label>
+
+            <input type="submit" value="Regisztráció">
+        </form>
+        <p th:text="${error}"></p>
+        <p><a href="/">Vissza</a></p>
+    </body>
+</html>

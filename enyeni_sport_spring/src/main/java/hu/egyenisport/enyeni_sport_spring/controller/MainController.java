@@ -31,6 +31,7 @@ public class MainController {
             if(session.getAttribute("felhasznalonev")!=null && competitorDAO.getCompetitorByUsername((String)session.getAttribute("felhasznalonev"))!=null){
                 menuElements.add(new MenuModel("Profil","/profile"));
             }
+            menuElements.add(new MenuModel("Statisztika","/stat"));
             menuElements.add(new MenuModel("Kijelentkezés","/logout"));
         }
         model.addAttribute("menuElements",menuElements);

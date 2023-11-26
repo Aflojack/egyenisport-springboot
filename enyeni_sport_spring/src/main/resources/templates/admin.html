@@ -75,6 +75,41 @@
             </label><br>
             <button type="submit" value="hozzaad">Hozzáad</button>
         </form>
+
+        <!--Bajnokság -->
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th>Bajnokság név</th>
+                <th>Bajnokság kezdete</th>
+                <th>Bajnokság vége</th>
+                <th>Helyszín</th>
+                <th>Meghívásos?</th>
+                <th>Törlés</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="element:${championships}">
+                <td th:text="${element.getNev()}"></td>
+                <td th:text="${element.getKezdodatum()}"></td>
+                <td th:text="${element.getVegzodatum()}"></td>
+                <td th:text="${element.getHelyszin()}"></td>
+                <td th:text="${element.nyilt()}"></td>
+                <td>
+                    <form th:action="@{/admin/championship/delete/{nev}(nev=${element.getNev()})}" method="post">
+                        <button type="submit" value="delete">Törlés</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form action="#" th:action="@{/admin/competitor/create}" method="post" class="form form-control">
+            <label>
+                Név
+                <input type="text" placeholder="Név" name="nev">
+            </label><br>
+            <button type="submit" value="hozzaad">Hozzáad</button>
+        </form>
         <p><a href="/">Vissza</a></p>
     </body>
 </html>

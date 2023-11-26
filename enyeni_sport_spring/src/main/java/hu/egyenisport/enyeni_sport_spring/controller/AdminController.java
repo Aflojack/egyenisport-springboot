@@ -1,7 +1,9 @@
 package hu.egyenisport.enyeni_sport_spring.controller;
 
+import hu.egyenisport.enyeni_sport_spring.dao.ChampionshipDAO;
 import hu.egyenisport.enyeni_sport_spring.dao.CompetitorDAO;
 import hu.egyenisport.enyeni_sport_spring.dao.UserDAO;
+import hu.egyenisport.enyeni_sport_spring.model.ChampionshipModel;
 import hu.egyenisport.enyeni_sport_spring.model.CompetitorModel;
 import hu.egyenisport.enyeni_sport_spring.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class AdminController {
     CompetitorDAO competitorDAO;
     @Autowired
     UserDAO userDAO;
+    @Autowired
+    ChampionshipDAO championshipDAO;
 
     @GetMapping("/admin")
     public String adminLoad(Model model){
@@ -28,6 +32,8 @@ public class AdminController {
         model.addAttribute("competitors",competitors);
         List<UserModel> users=userDAO.listAllUsername();
         model.addAttribute("usernames",users);
+        List<ChampionshipModel> championships=championshipDAO.listChampionships();
+        model.addAttribute("championships",championships);
         return "admin";
     }
 

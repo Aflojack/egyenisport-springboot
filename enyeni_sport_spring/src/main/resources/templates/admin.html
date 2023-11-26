@@ -129,6 +129,49 @@
             </label><br>
             <button type="submit" value="hozzaad">Hozzáad</button>
         </form>
+
+        <!-- Merkozesek -->
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th>MérkőzédId</th>
+                <th>Dátum</th>
+                <th>Helyszin</th>
+                <th>Tartozó bajnokság</th>
+                <th>Törlés</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="element:${matches}">
+                <td th:text="${element.getMerkozesid()}"></td>
+                <td th:text="${element.getDatum()}"></td>
+                <td th:text="${element.getHelyszin()}"></td>
+                <td th:text="${element.getNev()}"></td>
+                <td>
+                    <form th:action="@{/admin/match/delete/{id}(id=${element.getMerkozesid()})}" method="post">
+                        <button type="submit" value="delete">Törlés</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form action="#" th:action="@{/admin/match/create}" method="post" class="form form-control">
+            <label>
+                Dátuma (ÉÉÉÉ-HH-NN)
+                <input type="text" placeholder="Kezdete" name="datum">
+            </label><br>
+            <label>
+                Helyszín
+                <input type="text" placeholder="Helyszín" name="helyszin">
+            </label><br>
+            <label>
+                Bajnoksaghoz tartozik
+                <select name="bajnoksagnev">
+                    <option th:each="element:${championships}" th:value="${element.getNev()}" th:text="${element.getNev()}"></option>
+                </select>
+            </label><br>
+            <button type="submit" value="hozzaad">Hozzáad</button>
+        </form>
         <p><a href="/">Vissza</a></p>
     </body>
 </html>

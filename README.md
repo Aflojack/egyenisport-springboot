@@ -7,4 +7,4 @@ Megvalósításhoz használat eszközök:
 - Springboot keretrendszer
 - Dia (tervezéshez)
 
-A projekt elsősorban az adatbázistervezésre volt fókuszálva, ezért a program csak alapszintű weboldallal rendelkezik.
+A projekt elsősorban az adatbázistervezésre volt fókuszálva, ezért a program csak alapszintű weboldallal rendelkezik. A programozás alatt a MVC programtervezési mintát próbáltam követni.
